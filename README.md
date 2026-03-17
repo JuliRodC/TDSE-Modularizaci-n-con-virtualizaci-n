@@ -255,3 +255,8 @@ Repositorio en Docker Hub: [julirod03/microspring](https://hub.docker.com/r/juli
 
 ### Despliegue del framework en EC2 desde Docker Hub
 ![Capture15](taller-docker/Images/Capture15.png)
+
+
+## Video despliegues 
+
+https://drive.google.com/drive/folders/16stA84gdloGDXOHIF2rBWWnFjJTrNHyM?usp=sharing

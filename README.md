@@ -37,7 +37,6 @@ GET /greeting?name=World → "Hello, World!"
 
 ---
 
-
 ## Parte 1: Aplicación Spring Boot
 
 Se creó una aplicación Spring Boot mínima con un controlador REST que responde saludos:
@@ -160,12 +159,6 @@ sudo usermod -a -G docker ec2-user
 docker run -d -p 42000:6000 --name tallerdocker julirod03/taller-docker
 ```
 
-### Verificar
-
-```bash
-docker ps
-```
-
 ### Abrir el puerto en el Security Group de AWS
 
 Se abrió el puerto **42000** con origen `0.0.0.0/0` en las reglas de entrada del Security Group de la instancia EC2.
@@ -178,46 +171,87 @@ http://ec2-3-91-105-135.compute-1.amazonaws.com:42000/greeting
 
 ---
 
-## Evidencias
+## Tarea: Framework Propio con Concurrencia y Apagado Elegante
+
+Para la tarea se tomó el framework **MicroSpringBoot** desarrollado en el laboratorio anterior y se mejoró con dos características clave.
+
+
+
+### Arquitectura del framework
+
+```
+Navegador
+    │
+    ▼
+EC2 (AWS) puerto 43000
+    │
+    ▼
+Contenedor Docker (microspring)
+    │
+    ▼
+MicroSpringBoot (puerto 8080 interno)
+    │
+    ├── HttpServer (concurrente - 10 hilos)
+    ├── Annotations (@RestController, @GetMapping, @RequestParam)
+    ├── Controllers (GreetingController, HelloController)
+    └── Static files (webroot/)
+```
+
+URL pública:
+```
+http://ec2-3-91-105-135.compute-1.amazonaws.com:43000/greeting
+```
+
+Repositorio en Docker Hub: [julirod03/microspring](https://hub.docker.com/r/julirod03/microspring)
+
+---
+
+## Evidencias del Taller
 
 ### Aplicación corriendo localmente
-
-![Capture1](Images/Capture1.png)
+![Capture1](taller-docker/Images/Capture1.png)
 
 ### Hello World en localhost
-
-![Capture2](Images/Capture2.png)
+![Capture2](taller-docker/Images/Capture2.png)
 
 ### Greeting con nombre
-
-![Capture3](Images/Capture3.png)
+![Capture3](taller-docker/Images/Capture3.png)
 
 ### Contenedores Docker corriendo localmente
-
-![Capture4](Images/Capture4.png)
+![Capture4](taller-docker/Images/Capture4.png)
 
 ### Docker Desktop con contenedores activos
+![Capture5](taller-docker/Images/Capture5.png)
 
-![Capture5](Images/Capture5.png)
-
-![Capture6](Images/Capture6.png)
+![Capture6](taller-docker/Images/Capture6.png)
 
 ### Login y push a Docker Hub
-
-![Capture7](Images/Capture7.png)
+![Capture7](taller-docker/Images/Capture7.png)
 
 ### Repositorio en Docker Hub
-
-![Capture8](Images/Capture8.png)
+![Capture8](taller-docker/Images/Capture8.png)
 
 ### Conexión SSH a EC2
-
-![Capture9](Images/Capture9.png)
+![Capture9](taller-docker/Images/Capture9.png)
 
 ### Instalación de Docker en EC2
+![Capture10](taller-docker/Images/Capture10.png)
 
-![Capture10](Images/Capture10.png)
+### Aplicación Spring Boot corriendo en AWS
+![Capture11](taller-docker/Images/Capture11.png)
 
-### Aplicación corriendo en AWS
+---
 
-![Capture11](Images/Capture11.png)
+## Evidencias de la Tarea
+
+### Security Group con puertos abiertos en AWS
+![Capture12](taller-docker/Images/Capture14.png)
+
+### Framework propio corriendo en AWS (puerto 43000)
+![Capture13](taller-docker/Images/Capture13.png)
+
+### Build exitoso y construcción de imagen Docker del framework
+![Capture14](taller-docker/Images/Capture12.png)
+
+### Despliegue del framework en EC2 desde Docker Hub
+![Capture15](taller-docker/Images/Capture15.png)
